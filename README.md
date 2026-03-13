@@ -109,4 +109,7 @@ drone sim demo.py
 # The "B" button (2 key on computer) launches the drone, flies it forward and to the right, then lands the drone (Python <-> Sim check)
 ```
 
+<img width="982" height="136" alt="image" src="https://github.com/user-attachments/assets/cab38681-e3b9-4453-a8d9-d8b3d4c546ce" />
+
+
 <img width="947" height="529" alt="image" src="https://github.com/user-attachments/assets/b1fd92c9-529f-40ec-afd7-6b1e409ba55e" />
