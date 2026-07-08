@@ -119,10 +119,9 @@ drone() {
       if grep -qi "microsoft" /proc/version 2>/dev/null; then
         # WSL — invoke the .exe through cmd.exe so Windows owns the process and
         # resolves DLLs from a real NTFS path (not a \\wsl.localhost UNC path).
-        local exe_path
-        exe_path=$(find -L "$sim_build" -maxdepth 1 -mindepth 1 -type f -name 'UAVSim*.exe' | head -n1)
-        if [ -z "$exe_path" ]; then
-          echo "Error: UAVSim Windows binary not found in ${sim_build}."
+        local exe_path="${sim_build}/UAVSim.exe"
+        if [ ! -f "$exe_path" ]; then
+          echo "Error: UAVSim.exe not found at ${exe_path}."
           return 1
         fi
         local win_path
@@ -145,7 +144,7 @@ drone() {
         open "$app_path"
       elif [ "$(uname)" = "Linux" ]; then
         local lin_exe
-        lin_exe=$(find -L "$sim_build" -maxdepth 1 -mindepth 1 -type f \( -name 'UAVSim*.x86_64' -o -name 'UAVSim' \) | head -n1)
+        lin_exe=$(find -L "$sim_build" -maxdepth 1 -mindepth 1 -type f \( -name 'UAVSim.x86_64' -o -name 'UAVSim' \) | head -n1)
         if [ -z "$lin_exe" ]; then
           echo "Error: UAVSim Linux binary not found in ${sim_build}."
           return 1
