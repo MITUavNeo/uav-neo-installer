@@ -82,6 +82,28 @@ sync_library() {
     cd "$SCRIPT_DIR"
 }
 
+# Append config keys added after this install's setup.sh ran. Append-only:
+# .config holds per-student values (DRONE_IP, DRONE_TEAM) we must not rewrite.
+migrate_config() {
+    local cfg="${SCRIPT_DIR}/.config"
+    [ -f "$cfg" ] || return 0
+    local key default
+    while IFS='=' read -r key default; do
+        if ! grep -q "^${key}=" "$cfg"; then
+            # Guard against a file missing its trailing newline
+            [ -n "$(tail -c 1 "$cfg")" ] && echo >> "$cfg"
+            echo "${key}=${default}" >> "$cfg"
+            log "Added new .config field: ${key}=${default}"
+        fi
+    done << EOF
+DRONE_ABSOLUTE_PATH=${DRONE_DIR}
+DRONE_IP=127.0.0.1
+DRONE_TEAM=student
+DRONE_USER=uav
+DRONE_CONFIG_LOADED=TRUE
+EOF
+}
+
 # Capture start time for duration calculation
 UPDATE_START_TIME=$(date +%s)
 
@@ -298,8 +320,14 @@ elif [ "$FOLDER" == 'sim' ]; then
 fi
 
 # General checks (always run)
+migrate_config
 if [ -f "${SCRIPT_DIR}/.config" ]; then
-    check_pass ".config file exists"
+    # DRONE_USER is the newest key; its presence confirms migrate_config worked
+    if grep -q "^DRONE_USER=" "${SCRIPT_DIR}/.config"; then
+        check_pass ".config file exists with current fields"
+    else
+        check_fail ".config file is missing expected fields"
+    fi
 else
     check_fail ".config file not found"
 fi
