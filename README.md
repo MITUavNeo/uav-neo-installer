@@ -217,6 +217,43 @@ You will be prompted to select which component to update (labs, library, or sim)
 
 **Note:** Updating labs will replace your existing labs folder. Back up any work before running the update.
 
+### Testing unreleased changes (branch or fork)
+
+`setup.sh` and `update.sh` clone the labs and library from each repo's **default branch**
+(`main`). To test changes that are not on `main` yet, set these environment variables before
+running either script. They are unset by default, so students always get `main`.
+
+| Variable | Effect |
+|----------|--------|
+| `NEO_LABS_REF` / `NEO_LIB_REF` | Clone this branch or tag instead of the default branch. |
+| `NEO_LABS_URL` / `NEO_LIB_URL` | Clone from a different remote (a fork) or a local `file://` path instead of the canonical repo. |
+
+**A branch on the canonical GitHub repo** (the change must be pushed):
+
+```sh
+NEO_LABS_REF=feature/my-labs NEO_LIB_REF=feature/my-lib \
+  bash uav-neo-installer/drone-student/scripts/update.sh
+```
+
+**A fork on GitHub:**
+
+```sh
+NEO_LABS_URL=https://github.com/you/uav-neo-summer-course-labs.git NEO_LABS_REF=my-branch \
+  bash uav-neo-installer/drone-student/scripts/update.sh
+```
+
+**A local clone, no push needed** (clones committed local state; use a `file://` URL):
+
+```sh
+NEO_LABS_URL=file:///home/you/uav-neo-summer-course-labs NEO_LABS_REF=feature/my-labs \
+  bash uav-neo-installer/drone-student/scripts/update.sh
+```
+
+The labs and library are cloned independently, so set the `LABS` variables, the `LIB`
+variables, or both. `update.sh` updates one component per run; the overrides also apply to the
+automatic library resync at the end of a labs update. Uncommitted working-tree edits are not
+included — only committed state is cloned.
+
 ---
 
 ## Troubleshooting
