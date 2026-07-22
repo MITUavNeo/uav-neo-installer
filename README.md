@@ -7,6 +7,7 @@ Template repository for native UAV Neo installation on local computer
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Updating](#updating)
+- [Deploying to the drone (real hardware)](#deploying-to-the-drone-real-hardware)
 - [Troubleshooting](#troubleshooting)
   - [Connection diagnostics](#connection-diagnostics)
   - [Setup log files](#setup-log-files)
@@ -253,6 +254,36 @@ The labs and library are cloned independently, so set the `LABS` variables, the 
 variables, or both. `update.sh` updates one component per run; the overrides also apply to the
 automatic library resync at the end of a labs update. Uncommitted working-tree edits are not
 included — only committed state is cloned.
+
+---
+
+## Deploying to the drone (real hardware)
+
+The same lab code runs on the real drone. Deployment copies your `labs/` and `library/` to the
+Pi over SSH; the `drone` tool handles it.
+
+1. **Point at the Pi.** Edit `drone-student/scripts/.config` and set `DRONE_IP` to the drone's
+   address and `DRONE_TEAM` to your team name, then reload (`source ~/.bashrc` or a new
+   terminal). The tool connects as `uav@<DRONE_IP>` and deploys to
+   `/home/uav/jupyter_ws/<DRONE_TEAM>`.
+2. **First time:** `drone setup` — creates your team directory on the Pi and does an initial
+   `drone sync all`.
+3. **After each change:** `drone sync all` (or `drone sync labs` / `drone sync library`) —
+   rsyncs your local `labs/` and `library/` to the Pi. Sync `library` too, so the drone runs
+   the same library version as your simulator.
+4. **Run it:** `drone connect` (SSH into the Pi), then `python3 <path>/main.py`. There is no
+   `-s` flag, so `create_drone()` uses the real-drone backend instead of the simulator.
+
+Handled outside this installer, on the Pi or by the flight crew:
+
+- The ROS 2 flight stack must be running on the Pi (`teleop.launch.py`), and the Pi's own
+  tooling selects which synced library Python loads.
+- A **safety pilot** arms the drone and switches it to **OFFBOARD** to hand control to your
+  program; switching out is the abort. Nothing moves until then.
+- For position/waypoint flights, lower the PX4 `MPC_*` speed limits in QGroundControl first so
+  the drone is safe indoors.
+
+See `labs/flights/README.md` in the labs repo for the flight-day roles and per-flight steps.
 
 ---
 
