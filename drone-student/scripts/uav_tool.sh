@@ -251,6 +251,7 @@ drone() {
       echo "  DRONE_ABSOLUTE_PATH: ${DRONE_ABSOLUTE_PATH}"
       echo "  DRONE_IP: ${DRONE_IP}"
       echo "  DRONE_TEAM: ${DRONE_TEAM}"
+      echo "  DRONE_USER: ${DRONE_USER}"
       ;;
 
     help)

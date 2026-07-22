@@ -342,7 +342,7 @@ if [ "$PLATFORM" == 'windows' ]; then
     # DISPLAY intentionally NOT set: WSL2+WSLg auto-injects DISPLAY=:0 before
     # .bashrc; hardcoding "localhost:42.0" (legacy XLaunch) breaks Qt/cv2.imshow.
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
-DRONE_IP=127.0.0.1
+DRONE_IP=10.42.0.1
 DRONE_TEAM=student
 DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
@@ -438,7 +438,7 @@ elif [ "$PLATFORM" == 'linux' ]; then
 
     # UDP buffer tuning lives in _drone_tune_udp (lazy, called from 'drone sim').
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
-DRONE_IP=127.0.0.1
+DRONE_IP=10.42.0.1
 DRONE_TEAM=student
 DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
@@ -524,7 +524,7 @@ elif [ "$PLATFORM" == 'mac' ]; then
 
     # UDP buffer tuning lives in _drone_tune_udp (lazy, called from 'drone sim').
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
-DRONE_IP=127.0.0.1
+DRONE_IP=10.42.0.1
 DRONE_TEAM=student
 DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
