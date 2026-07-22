@@ -303,7 +303,7 @@ if [ "$PLATFORM" == 'windows' ]; then
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
 DRONE_IP=127.0.0.1
 DRONE_TEAM=student
-DRONE_USER=bwsi
+DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
 
     log_silent "Writing .local_bashrc.sh..."
@@ -399,7 +399,7 @@ elif [ "$PLATFORM" == 'linux' ]; then
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
 DRONE_IP=127.0.0.1
 DRONE_TEAM=student
-DRONE_USER=bwsi
+DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
 
     log_silent "Writing .local_bashrc.sh..."
@@ -485,7 +485,7 @@ elif [ "$PLATFORM" == 'mac' ]; then
     echo "DRONE_ABSOLUTE_PATH=${DRONE_DIR}
 DRONE_IP=127.0.0.1
 DRONE_TEAM=student
-DRONE_USER=bwsi
+DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE" > "${SCRIPT_DIR}/.config"
 
     log_silent "Writing .local_bashrc.sh..."

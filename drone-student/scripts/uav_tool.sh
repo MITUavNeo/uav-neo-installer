@@ -47,9 +47,9 @@ drone() {
     return 1
   fi
 
-  # SSH account on the drone (the Pi's login). Defaults to bwsi; override with DRONE_USER in
+  # SSH account on the drone (the Pi's login). Defaults to uav; override with DRONE_USER in
   # .config for a drone set up under a different account.
-  local DRONE_USER="${DRONE_USER:-bwsi}"
+  local DRONE_USER="${DRONE_USER:-uav}"
   local DRONE_DESTINATION_PATH="/home/${DRONE_USER}/jupyter_ws/${DRONE_TEAM}"
 
   case "$1" in
