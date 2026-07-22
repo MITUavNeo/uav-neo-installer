@@ -264,8 +264,9 @@ Pi over SSH; the `drone` tool handles it.
 
 1. **Point at the Pi.** Edit `drone-student/scripts/.config` and set `DRONE_IP` to the drone's
    address and `DRONE_TEAM` to your team name, then reload (`source ~/.bashrc` or a new
-   terminal). The tool connects as `uav@<DRONE_IP>` and deploys to
-   `/home/uav/jupyter_ws/<DRONE_TEAM>`.
+   terminal). The SSH account defaults to `bwsi`; set `DRONE_USER` in `.config` if your drone
+   uses a different login. The tool connects as `<DRONE_USER>@<DRONE_IP>` and deploys to
+   `/home/<DRONE_USER>/jupyter_ws/<DRONE_TEAM>`.
 2. **First time:** `drone setup` — creates your team directory on the Pi and does an initial
    `drone sync all`.
 3. **After each change:** `drone sync all` (or `drone sync labs` / `drone sync library`) —
