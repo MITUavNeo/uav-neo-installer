@@ -97,7 +97,7 @@ migrate_config() {
         fi
     done << EOF
 DRONE_ABSOLUTE_PATH=${DRONE_DIR}
-DRONE_IP=127.0.0.1
+DRONE_IP=10.42.0.1
 DRONE_TEAM=student
 DRONE_USER=uav
 DRONE_CONFIG_LOADED=TRUE

@@ -173,7 +173,7 @@ drone test
 ```sh
 drone tool set up successfully!
   DRONE_ABSOLUTE_PATH: /home/user/uav-neo-installer/drone-student
-  DRONE_IP: 127.0.0.1
+  DRONE_IP: 10.42.0.1
   DRONE_TEAM: student
   DRONE_USER: uav
 ```
@@ -268,7 +268,7 @@ fields added after your install, keeping the values you have set.
 | Field | Default | Meaning |
 |-------|---------|---------|
 | `DRONE_ABSOLUTE_PATH` | *(install path)* | Location of `drone-student/` on this machine. Used by `drone cd`, backups, and sync. |
-| `DRONE_IP` | `127.0.0.1` | Address the `drone` tool connects to: `127.0.0.1` for the simulator, the Pi's address for real hardware. |
+| `DRONE_IP` | `10.42.0.1` | Address the `drone` tool connects to over SSH. The default is the drone's access-point address; change it if you reach the Pi over a different network. |
 | `DRONE_TEAM` | `student` | Team name. Deploys land in `/home/<DRONE_USER>/jupyter_ws/<DRONE_TEAM>` on the Pi. |
 | `DRONE_USER` | `uav` | SSH login on the Pi. Change it if your drone was set up under a different account. |
 | `DRONE_CONFIG_LOADED` | `TRUE` | Set by `setup.sh`; the `drone` tool refuses to run if this is missing, which means the file was never sourced. |
